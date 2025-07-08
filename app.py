@@ -19,13 +19,36 @@ def create_connection_and_setup_db():
     db_password = os.environ.get('DB_PASSWORD', 'q1w2e3r4')
     db_name = os.environ.get('DB_NAME', 'news')
     
-    connection = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_password,
-        database=db_name
-    )
-    return connection
+    print(f"🔗 데이터베이스 연결 시도: {db_user}@{db_host}/{db_name}")
+    
+    try:
+        connection = mysql.connector.connect(
+            host=db_host,
+            user=db_user,
+            password=db_password,
+            database=db_name
+        )
+        print("✅ 데이터베이스 연결 성공!")
+        
+        # 테이블이 없으면 생성
+        cursor = connection.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS news (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                title VARCHAR(500),
+                link VARCHAR(1000),
+                press VARCHAR(100),
+                date DATE,
+                time_desc VARCHAR(50)
+            )
+        """)
+        connection.commit()
+        print("✅ 뉴스 테이블 확인/생성 완료!")
+        
+        return connection
+    except Exception as e:
+        print(f"❌ 데이터베이스 연결 실패: {e}")
+        raise e
 
 # ---------------------------
 # 뉴스 삽입 함수
