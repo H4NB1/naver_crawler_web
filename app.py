@@ -234,17 +234,18 @@ def crawl():
     
     engine = create_engine(f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_name}')
     
-    # pandas 대신 SQLAlchemy로 데이터 조회
-    result = engine.execute(text('SELECT * FROM news ORDER BY date DESC'))
+    # pandas 대신 SQLAlchemy로 데이터 조회 (SQLAlchemy 2.0 방식)
     news_list = []
-    for row in result:
-        news_list.append({
-            'title': row.title,
-            'link': row.link,
-            'press': row.press,
-            'date': row.date.isoformat() if row.date else None,
-            'time_desc': row.time_desc
-        })
+    with engine.connect() as conn:
+        result = conn.execute(text('SELECT * FROM news ORDER BY date DESC'))
+        for row in result:
+            news_list.append({
+                'title': row.title,
+                'link': row.link,
+                'press': row.press,
+                'date': row.date.isoformat() if row.date else None,
+                'time_desc': row.time_desc
+            })
     
     print(f"📊 크롤링된 총 뉴스 수: {len(news_list)}")
     
