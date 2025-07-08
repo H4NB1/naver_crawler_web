@@ -13,6 +13,15 @@ app = Flask(__name__)
 # MySQL 연결 및 DB/테이블 설정
 # ---------------------------
 def create_connection_and_setup_db():
+    # 환경 변수 디버깅
+    print("🔍 환경 변수 디버깅:")
+    print(f"  DB_HOST: {os.environ.get('DB_HOST', 'NOT_SET')}")
+    print(f"  DB_USER: {os.environ.get('DB_USER', 'NOT_SET')}")
+    print(f"  DB_PASSWORD: {os.environ.get('DB_PASSWORD', 'NOT_SET')}")
+    print(f"  DB_NAME: {os.environ.get('DB_NAME', 'NOT_SET')}")
+    print(f"  HOST: {os.environ.get('HOST', 'NOT_SET')}")
+    print(f"  PORT: {os.environ.get('PORT', 'NOT_SET')}")
+    
     # 환경 변수에서 데이터베이스 설정 가져오기
     db_host = os.environ.get('DB_HOST', 'localhost')
     db_user = os.environ.get('DB_USER', 'root')
