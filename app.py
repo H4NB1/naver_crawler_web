@@ -227,11 +227,21 @@ def crawl():
         return jsonify({'error': '지원하지 않는 포털입니다.'})
 
     # 크롤링된 뉴스 출력 (pandas 대신 SQLAlchemy 사용)
-    db_host = os.environ.get('DB_HOST', 'localhost')
-    db_user = os.environ.get('DB_USER', 'root')
-    db_password = os.environ.get('DB_PASSWORD', 'q1w2e3r4')
-    db_name = os.environ.get('DB_NAME', 'news')
-    
+    # Railway 환경 감지
+    is_railway = os.environ.get('HOST') == '0.0.0.0'
+    if is_railway:
+        db_host = 'mysql.railway.internal'
+        db_user = 'root'
+        db_password = 'MdYwPLGXFwiacdgnLzbSkvAroNLQdoUj'
+        db_name = 'railway'
+        print("🚂 Railway 환경 감지됨 - SQLAlchemy도 강제 설정 사용")
+    else:
+        db_host = os.environ.get('DB_HOST', 'localhost')
+        db_user = os.environ.get('DB_USER', 'root')
+        db_password = os.environ.get('DB_PASSWORD', 'q1w2e3r4')
+        db_name = os.environ.get('DB_NAME', 'news')
+        print("🏠 로컬 환경 감지됨 - SQLAlchemy 환경 변수 사용")
+
     engine = create_engine(f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_name}')
     
     # pandas 대신 SQLAlchemy로 데이터 조회 (SQLAlchemy 2.0 방식)
