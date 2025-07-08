@@ -22,15 +22,21 @@ def create_connection_and_setup_db():
     print(f"  HOST: {os.environ.get('HOST', 'NOT_SET')}")
     print(f"  PORT: {os.environ.get('PORT', 'NOT_SET')}")
     
-    # 환경 변수에서 데이터베이스 설정 가져오기
-    db_host = os.environ.get('DB_HOST', 'localhost')
-    db_user = os.environ.get('DB_USER', 'root')
-    db_password = os.environ.get('DB_PASSWORD', 'q1w2e3r4')
-    db_name = os.environ.get('DB_NAME', 'news')
-    
-    print(f"🔗 데이터베이스 연결 시도: {db_user}@{db_host}/{db_name}")
+    # Railway MySQL URL 직접 사용
+    mysql_url = "mysql://root:MdYwPLGXFwiacdgnLzbSkvAroNLQdoUj@mysql.railway.internal:3306/railway"
     
     try:
+        # URL에서 연결 정보 파싱
+        from urllib.parse import urlparse
+        parsed = urlparse(mysql_url)
+        
+        db_host = parsed.hostname
+        db_user = parsed.username
+        db_password = parsed.password
+        db_name = parsed.path[1:]  # '/' 제거
+        
+        print(f"🔗 데이터베이스 연결 시도: {db_user}@{db_host}/{db_name}")
+        
         connection = mysql.connector.connect(
             host=db_host,
             user=db_user,
