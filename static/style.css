@@ -1,0 +1,194 @@
+/* 🔷 전체 배경 및 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* 🔷 중앙 컨테이너 박스 */
+.container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔷 제목 */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* 🔷 폼 구조 - 한 줄 정렬 및 가로폭 분배 */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* 🔷 각 입력 그룹을 가로폭 비율에 따라 분배 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* 기본적으로 같은 너비 */
+    min-width: 150px;
+}
+
+/* 🔷 개별 요소 너비 및 모양 통일 */
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 🔷 검색어 입력은 조금 넓게 */
+#keyword {
+    flex: 2;  /* 다른 요소보다 더 넓게 */
+}
+
+/* 🔷 포함/제외 키워드 필드 스타일 */
+#include_keywords, #exclude_keywords {
+    flex: 1.5;  /* 기본 검색어보다는 작지만 다른 필드보다는 크게 */
+}
+
+/* 🔷 검색 버튼 스타일 및 비율 조정 */
+form > button {
+    padding: 10px 20px;
+    height: 42px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-end;
+    flex: 1;
+    min-width: 120px;
+    box-sizing: border-box;
+}
+
+form > button:hover {
+    background-color: #45a049;
+}
+
+/* 🔷 도움말 섹션 스타일 */
+.help-section {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.help-section h3 {
+    margin-top: 0;
+    color: #495057;
+    font-size: 16px;
+}
+
+.help-section ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.help-section li {
+    margin: 5px 0;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.help-section strong {
+    color: #495057;
+}
+
+/* 🔷 로딩 메시지 */
+#loading {
+    display: none;
+    font-style: italic;
+    color: #3b3de2;
+    margin-top: 10px;
+}
+
+/* 🔷 검색 결과 개수 표시 */
+.result-count {
+    background-color: #e3f2fd;
+    border: 1px solid #2196f3;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.result-count p {
+    margin: 0;
+    color: #1976d2;
+    font-weight: bold;
+}
+
+/* 🔷 뉴스 결과 리스트 */
+#news-results {
+    margin-top: 20px;
+}
+
+#news-results ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#news-results li {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#news-results li a {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+#news-results li a:hover {
+    text-decoration: underline;
+}
+
+#news-results li span {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 🔷 페이지네이션 스타일 */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 4px;
+    padding: 6px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background: white;
+    color: #333; /* ✅ 선택되지 않은 버튼 텍스트 색상 */
+    border-radius: 4px;
+}
+
+.pagination button.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination button:disabled {
+    background-color: #eee;
+    color: #999;
+    cursor: not-allowed;
+}

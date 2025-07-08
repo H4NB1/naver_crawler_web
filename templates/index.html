@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스 검색</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔎뉴스 검색</h1>
+
+        <!-- 검색 폼 -->
+        <form id="crawl-form">
+            <div class="form-group">
+                <label for="media">포털 선택</label>
+                <select id="media" name="media">
+                    <option value="네이트">네이트</option>
+                    <option value="다음">다음</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="keyword">기본 검색어</label>
+                <input type="text" id="keyword" name="keyword" required placeholder="예: 신약">
+            </div>
+
+            <div class="form-group">
+                <label for="include_keywords">포함 키워드</label>
+                <input type="text" id="include_keywords" name="include_keywords" placeholder="예: 백신,접종">
+            </div>
+
+            <div class="form-group">
+                <label for="exclude_keywords">제외 키워드</label>
+                <input type="text" id="exclude_keywords" name="exclude_keywords" placeholder="예: 정치,선거">
+            </div>
+
+            <div class="form-group">
+                <label for="page_count">페이지 수</label>
+                <select id="page_count" name="page_count" required>
+                    {% for i in range(1, 11) %}
+                    <option value="{{ i }}">{{ i }}페이지</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">검색 시작</button>
+        </form>
+
+        <!-- 검색 도움말 -->
+        <div class="help-section">
+            <h3>🔍 검색 방법 안내</h3>
+            <ul>
+                <li><strong>기본 검색어:</strong> 찾고 싶은 주제나 키워드를 입력</li>
+                <li><strong>포함 키워드:</strong> 뉴스 제목에 꼭 들어있어야 할 단어들 (여러 개는 쉼표로 구분)</li>
+                <li><strong>제외 키워드:</strong> 뉴스 제목에 있으면 제외할 단어들 (여러 개는 쉼표로 구분)</li>
+                <li><strong>📝 예시:</strong> "신약" 검색 + "백신,접종" 포함 + "정치" 제외 = 신약 관련 백신/접종 뉴스 중 정치 관련 제외</li>
+            </ul>
+        </div>
+
+        <!-- 로딩 메시지 -->
+        <div id="loading">로딩 중... 잠시만 기다려주세요.</div>
+
+        <!-- 뉴스 결과 영역 -->
+        <div id="news-results"></div>
+        <div id="pagination" class="pagination"></div>
+
+        <!-- 페이지네이션 버튼 영역 -->
+        <div id="pagination" class="pagination"></div>
+    </div>
+
+    <!-- JS 연동 -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
